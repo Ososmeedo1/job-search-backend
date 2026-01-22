@@ -3,6 +3,3 @@ import express from 'express'
 
 const app = express();
 bootstrap(app, express);
-
-
-
