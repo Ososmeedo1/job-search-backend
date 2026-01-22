@@ -6,17 +6,21 @@ import dbConnection from "./DB/connection.js";
 import { globalResponse } from "./src/Middlewares/error-handle.middleware.js";
 import jobRouter from "./src/Modules/Job/job.routes.js";
 
-const bootstrap = async (app, express) => {
+const bootstrap = (app, express) => {
   config();
   const port = process.env.PORT || 3000;
   app.use(cors());
   app.use(express.json());
 
+  app.get('/', (req, res) => {
+    res.status(200).json({ message: "Start of API" });
+  });
+
   app.use('/users', userRouter)
   app.use('/companies', companyRouter)
   app.use('/jobs', jobRouter)
 
-  await dbConnection()
+  dbConnection()
 
   app.use(globalResponse)
 
